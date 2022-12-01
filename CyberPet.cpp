@@ -1,3 +1,4 @@
+// By Jack Briggs - 2202960
 #include <string>
 #include "CyberPet.h"
 #include <iostream>
@@ -72,6 +73,7 @@ void CyberPet::setHappiness(int happiness) {
 	this->happiness = bound(happiness, 0, 100);
 }
 
+// user friendly hunger
 std::string CyberPet::getHunger() {
 	switch (hunger) {
 	case 1:
@@ -87,6 +89,7 @@ std::string CyberPet::getHunger() {
 	}
 }
 
+// user friendly tiredness
 std::string CyberPet::getTiredness() {
 	switch (tiredness) {
 	case 1:

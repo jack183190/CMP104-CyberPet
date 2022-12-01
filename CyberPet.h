@@ -1,3 +1,4 @@
+// By Jack Briggs - 2202960
 #include <string>
 #pragma once
 

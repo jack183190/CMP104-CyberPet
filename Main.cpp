@@ -71,17 +71,20 @@ int main() {
 		else if (command == "play") play(choosePet(&pets));
 		else if (command == "help") help();
 		else if (command == "info") info(&money, &food, &pets);
+		else if (command == "exit") {} // do nothing, just prevent invalid command message
 		else std::cout << "Invalid command. Use 'help' for help.\n";
 
 		// every pet will calculate the amount their attributes (hunger, tiredness, happiness) should have gone down
 		// since tick was last called
-		for (CyberPet* pet : pets) {
+		for (int i = 0; i < pets.size(); i++) {
+			CyberPet* pet = pets.at(i);
 			pet->tick(&money);
 			hasBoughtPet = true; // they have a pet so must have bought one
+			if (pet->isDead()) pets.erase(pets.begin() + i);
 		}
 
 		// game over?
-		if (pets.size() == 0 && hasBoughtPet) {
+		if (pets.empty() && hasBoughtPet) {
 			std::cout << "Your last CyberPet has perished, game over!\n";
 			break;
 		}
@@ -114,6 +117,7 @@ void help() {
 // prompt the user to pick a pet
 CyberPet* choosePet(std::vector<CyberPet*>* pets) {
 	std::cout << "Select a CyberPet: \n";
+	// list pets
 	for (int i = 0; i < (*pets).size(); i++) {
 		std::cout << (*pets).at(i)->getName();
 		if (i + 1 < (*pets).size()) std::cout << ", ";
@@ -123,6 +127,7 @@ CyberPet* choosePet(std::vector<CyberPet*>* pets) {
 	std::string name;
 	std::getline(std::cin, name);
 
+	// get pet from name
 	for (int i = 0; i < (*pets).size(); i++) {
 		CyberPet* pet = (*pets).at(i);
 		if (pet->getName() == name) return pet;

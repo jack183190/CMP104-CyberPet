@@ -1,3 +1,4 @@
+// By Jack Briggs - 2202960
 #include "Purchase.h";
 #include <iostream>
 #include <string>
@@ -8,6 +9,7 @@ void purchase(double* money, int* food, std::vector<CyberPet*>* pets) {
 	std::string what;
 	std::getline(std::cin, what);
 
+	// figure out what the user wants to purchase
 	if (what == "pet") purchasePet(money, pets);
 	else if (what == "food") purchaseFood(money, food, pets);
 	else if (what != "cancel") std::cout << "Invalid option, cancelling.\n";
@@ -88,11 +90,13 @@ void purchaseFood(double* money, int* food, std::vector<CyberPet*>* pets) {
 		return;
 	}
 
+	// enough money?
 	if (*money < price) {
 		std::cout << "You do not have enough money for this transaction. Cancelling...\n";
 		return;
 	}
 
+	// buy the food
 	(*money) -= price;
 	(*food) += amount;
 	std::cout << "You have bought " << amount << " food for " << price << ".\n";
